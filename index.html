@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Timezone App</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <header>
+      <nav class="app-navigation">
+        <ul class="app-navigation__list">
+          <li class="app-navigation__item">
+            <button class="app-navigation__link">Add Member</button>
+          </li>
+          <li class="app-navigation__item">
+            <button class="app-navigation__link">Show Members</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="app">
+      <section class="app-timezones">
+        <h2>Members list</h2>
+        <ul class="app-timezones__list-members">
+          <li class="app-timezones__member">
+            <h3 class="app-timezones__member-name">Peter</h3>
+            <p class="app-timezones__current-time">15:20</p>
+            <p class="app-timezones__city">Toronto</p>
+            <table class="app-timezones__timeline">
+              <tr class="app-timezones__line">
+                <td class="app-timezones__time app-timezones__time--start">12:00</td>
+                <td class="app-timezones__time">13:00</td>
+                <td class="app-timezones__time">14:00</td>
+                <td class="app-timezones__time">15:00</td>
+                <td class="app-timezones__time">16:00</td>
+                <td class="app-timezones__time">17:00</td>
+                <td class="app-timezones__time">18:00</td>
+                <td class="app-timezones__time">19:00</td>
+                <td class="app-timezones__time">20:00</td>
+                <td class="app-timezones__time">21:00</td>
+                <td class="app-timezones__time">22:00</td>
+                <td class="app-timezones__time app-timezones__time--end">23:00</td>
+              </tr>
+            </table>
+          </li>
+        </ul>
+      </section>
+
+      <section class="app-member">
+        <h2 class="app-member__header">Add member</h2>
+        <form class="app-member__form" action="" method="">
+          <ul class="app-member__list">
+            <li class="app-member__item">
+              <p class="app-member__name">
+                <label class="app-member__label-name" for="name">Name:</label>
+                <input class="app-member__input-name" id="name" type="text" value="">
+              </p>
+            </li>
+            <li class="app-member__item">
+              <p class="app-member__surname">
+                <label class="app-member__label-surname" for="surname">Surname:</label>
+                <input class="app-member__input-surname" id="surname" type="text" value="">
+              </p>
+            </li>
+            <li class="app-member__item">
+              <p class="app-member__city">
+                <label class="app-member__label-city" for="city">City:</label>
+                <input class="app-member__input-city" id="city" type="text" value="">
+              </p>
+            </li>
+            <li class="app-member__item">
+              <p class="app-member__shedule">
+                <table class="app-member__shedule-table">
+                  <tr class="app-member__shedule-row">
+                    <td class="app-member__shedule-time">
+                      <label for="00:00">00:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="00:00" name="00:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="01:00">01:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="01:00" name="01:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="02:00">02:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="02:00" name="02:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="03:00">03:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="03:00" name="03:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="04:00">04:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="04:00" name="04:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="05:00">05:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="05:00" name="05:00" value="true">
+                    </td>
+                  </tr>
+                  <tr class="app-member__shedule-row">
+                    <td class="app-member__shedule-time">
+                      <label for="06:00">06:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="06:00" name="06:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="07:00">07:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="07:00" name="07:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="08:00">08:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="08:00" name="08:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="09:00">09:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="09:00" name="09:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="10:00">10:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="10:00" name="10:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="11:00">11:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="11:00" name="11:00" value="true">
+                    </td>
+                  </tr>
+                  <tr class="app-member__shedule-row">
+                    <td class="app-member__shedule-time">
+                      <label for="12:00">12:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="12:00" name="12:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="13:00">13:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="13:00" name="13:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="14:00">14:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="14:00" name="14:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="15:00">15:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="15:00" name="15:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="16:00">16:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="16:00" name="16:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="17:00">17:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="17:00" name="17:00" value="true">
+                    </td>
+                  </tr>
+                  <tr class="app-member__shedule-row">
+                    <td class="app-member__shedule-time">
+                      <label for="18:00">18:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="18:00" name="18:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="19:00">19:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="19:00" name="19:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="20:00">20:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="20:00" name="20:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="21:00">21:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="21:00" name="21:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="22:00">22:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="22:00" name="22:00" value="true">
+                    </td>
+                    <td class="app-member__shedule-time">
+                      <label for="23:00">23:00</label>
+                      <input class="app-member__shedule-checkbox" type="checkbox" id="23:00" name="23:00" value="true">
+                    </td>
+                  </tr>
+                </table>
+              </p>
+            </li>
+            <li class="app-member__item">
+              <p class="app-member__UTC">
+                <select class="utc" name="utc">
+                  <option selected class="utc__option" value="-11">(UTC -11:00) UTC time -11</option>
+                  <option class="utc__option" value="-10">(UTC -10:00) Hawaii, Aleutian Islands</option>
+                  <option class="utc__option" value="-9">(UTC -09:00) Alaska</option>
+                  <option class="utc__option" value="-8">(UTC -08:00) PST</option>
+                  <option class="utc__option" value="-7">(UTC -07:00) MST, La Paz</option>
+                  <option class="utc__option" value="-6">(UTC -06:00) CST, Mexico City, Easter Island, Central America</option>
+                  <option class="utc__option" value="-5">(UTC -05:00) EST, Havana, Lima, Bogota</option>
+                  <option class="utc__option" value="-4">(UTC -04:00) AST, Caracas, Lapas, Georgetown, San Juan, Santiago</option>
+                  <option class="utc__option" value="-3">(UTC -03:00) Brasilia, Nuuk, Montevideo, Buenos Aires</option>
+                  <option class="utc__option" value="-2">(UTC -02:00) UTC time -2</option>
+                  <option class="utc__option" value="-1">(UTC -01:00) Cape Verde, Azores</option>
+                  <option class="utc__option" value="0">(UTC +00:00) Reykjavik, London, Lisbon</option>
+                  <option class="utc__option" value="1">(UTC +01:00) Amsterdam, Berlin, Madrid, Paris, Rome, Warsaw</option>
+                  <option class="utc__option" value="2">(UTC +02:00) Jerusalem, Kiev, Riga, Athens</option>
+                  <option class="utc__option" value="3">(UTC +03:00) Minsk, Istanbul, Baghdad, Moscow, Tehran</option>
+                  <option class="utc__option" value="4">(UTC +04:00) Abu Dhabi, Baku, Yerevan, Volgograd, Tbilisi</option>
+                  <option class="utc__option" value="5">(UTC +05:00) Tashkent, Islamabad, Yekaterinburg</option>
+                  <option class="utc__option" value="6">(UTC +06:00) Astana, Dhaka, Omsk</option>
+                  <option class="utc__option" value="7">(UTC +07:00) Bangkok, Jakata, Hanoi, Krasnoyarsk, Novosibirsk, Barnaul</option>
+                  <option class="utc__option" value="8">(UTC +08:00) Hong Kong, Beijing, Irkutsk, Singapore, Taipei</option>
+                  <option class="utc__option" value="9">(UTC +09:00) Osaka, Tokyo, Pyongyang, Seoul, Chita</option>
+                  <option class="utc__option" value="10">(UTC +10:00) Brisbane, Vladivostok, Canberra, Sydney</option>
+                  <option class="utc__option" value="11">(UTC +11:00) Magadan, Sakhalin, New Caledonia, Solomon Islands, Norfolk Island</option>
+                  <option class="utc__option" value="12">(UTC +12:00) Petropavlovsk-Kamchatsky, Anadyr, Welliton, Auckland</option>
+                  <option class="utc__option" value="13">(UTC +13:00) Samoa</option>
+                </select>
+              </p>
+            </li>
+          </ul>
+          <button class="app-member__form-btn" type="submit">Add member</button>
+        </form>
+      </section>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>
