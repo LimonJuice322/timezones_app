@@ -1,5 +1,29 @@
 .app-navigation__list {
+  outline: 2px dotted red;
+  display: flex;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+}
+
+
+.app-navigation__btn {
+  font-size: 15px;
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-width: 150px;
+  font-family: inherit;
+  text-transform: uppercase;
+  border: 2px solid #00BD39;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.app-navigation__btn:hover,
+.app-navigation__btn:focus {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #00BD39;
+  transition: 0.2s;
 }

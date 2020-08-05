@@ -1,0 +1,7 @@
+.app {
+  position: relative;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  margin: 0 auto;
+  width: 800px;
+  outline: 2px dotted black;
+}

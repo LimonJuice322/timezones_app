@@ -9,33 +9,21 @@
 }
 
 .app-timezones__line  {
-  outline: 2px dotted red;
   width: 100%;
 }
 
 .app-timezones__time {
-  outline: 2px dotted blue;
   position: relative;
   padding-bottom: 20px;
 }
 
 .apptimezones__time--work::after {
-  outline: 2px dotted green;
   position: absolute;
   content: "";
-  width: 100%;
+  width: 46px;
   height: 10px;
   left: 0;
   bottom: 0;
   background-color: blue;
-}
-
-.app-timezones__time--start::after {
-  border-top-left-radius: 30%;
-  border-bottom-left-radius: 30%;
-}
-
-.app-timezones__time--end::after {
-  border-top-right-radius: 30%;
-  border-bottom-right-radius: 30%;
+  border-radius: 10%;
 }
