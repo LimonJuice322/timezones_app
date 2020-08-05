@@ -11,19 +11,17 @@ if (localStorage.getItem('members')) {
   var id = 0;
 }
 
-let cur_time = new Date();
-
-console.log(id);
-
-function format_time(time) {
+function format_time(time, ...parameters) {
   let formatted_minutes, formatted_hours;
-  (time.getHours().length < 2) ? formatted_hours = `0${time.getHours()}` : formatted_hours = `${time.getHours()}`;
-  (time.getMinutes().length < 2) ? formatted_minutes = `0${time.getMinutes()}` : formatted_minutes = `${time.getMinutes()}`;
-  return `${formatted_hours}:${formatted_minutes}`
+  (time.getHours() < 10) ? formatted_hours = `0${time.getHours()}` : formatted_hours = `${time.getHours()}`;
+  (time.getMinutes() < 10) ? formatted_minutes = `0${time.getMinutes()}` : formatted_minutes = `${time.getMinutes()}`;
+  return parameters[0] === 'm' ? `${formatted_minutes}` : parameters[0] === 'h' ? `${formatted_hours}` : `${formatted_hours}:${formatted_minutes}`
 }
 
-function get_timezone() {
-  return new Date(new Date().setUTCHours(0)).getHours();
+function get_time_of_zone(offset) {
+  let date = new Date();
+  let utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+  return new Date(utc + offset * 3600000);
 }
 
 function render_timeline(member) {
@@ -34,14 +32,16 @@ function render_timeline(member) {
     </tr>
   </table>`);
   let line = member_elem.querySelector('.app-timezones__line');
-  let line_date = new Date(new Date().setUTCHours(member.tz));
+  let line_date = get_time_of_zone(member.tz);
   for (let i = 6; i > 0; i--) {
+    let time = new Date(new Date(line_date).setHours(line_date.getHours()-i));
     line.insertAdjacentHTML('beforeend', `
-      <td class="app-timezones__time">${new Date(new Date(line_date).setHours(line_date.getHours()-i)).getHours()}:00</td>`)
+      <td class="app-timezones__time">${format_time(time, 'h')}:00</td>`);
   }
   for (let i = 0; i < 6; i++) {
+    let time = new Date(new Date(line_date).setHours(line_date.getHours()+i));
     line.insertAdjacentHTML('beforeend', `
-      <td class="app-timezones__time">${new Date(new Date(line_date).setHours(line_date.getHours()+i)).getHours()}:00</td>`)
+      <td class="app-timezones__time">${format_time(time, 'h')}:00</td>`);
   }
 }
 
@@ -51,7 +51,7 @@ function render_member(member) {
   list.insertAdjacentHTML('beforeend', `
     <li id="${member.id}" class="app-timezones__member">
       <h3 class="app-timezones__member-name">${member.name}</h3>
-      <p class="app-timezones__current-time">times</p>
+      <p class="app-timezones__current-time">${format_time(get_time_of_zone(member.tz))}</p>
       <p class="app-timezones__city">${member.city}</p>
     </li>`);
   render_timeline(member);
