@@ -98,3 +98,12 @@ btn.addEventListener('click', function (evt) {
     render_member(member);
   }
 })
+
+let btn_add = document.querySelector('.app-navigation__btn--add');
+btn_add.addEventListener('click', function () {
+  document.querySelector('.app-member').classList.remove('visually-hidden');
+  let btn_close = document.querySelector('.app-member__btn-close');
+  btn_close.addEventListener('click', function() {
+    document.querySelector('.app-member').classList.add('visually-hidden');
+  })
+})
