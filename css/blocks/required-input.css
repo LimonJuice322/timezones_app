@@ -1,0 +1,38 @@
+.required-label {
+  display: none;
+  width: 100px;
+  position: absolute;
+  top: 0;
+  left: 440px;
+  padding: 5px;
+  background-color: #FFCF40;
+  border: 1px solid #BC2F36;
+  border-radius: 5px;
+}
+
+.required-label--show {
+  display: block;
+  animation: show 1s;
+}
+
+.required-label::after {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 20px;
+  width: 15px;
+  height: 15px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15'%3E%3Cpolygon points='1,15 15,0 15,15' fill='%23FFCF40'/%3E%3Cline x1='0' y1='15' x2='14' y2='15' stroke='%23BC2F36' stroke-width='1' /%3E%3Cline x1='0' y1='15' x2='14' y2='0' stroke='%23BC2F36' stroke-width='1' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+@keyframes show {
+  from {
+    transform: translateX(+50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

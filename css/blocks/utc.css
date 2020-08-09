@@ -1,0 +1,35 @@
+.utc {
+  position: absolute;
+  top: 0;
+  left: 150px;
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 3;
+  box-shadow: 0 0 10px #000000;
+}
+
+.utc--show {
+  display: block;
+}
+
+.utc__label {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #00BD39;
+}
+
+.utc__label:hover,
+.utc__radio:focus + .utc__label {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #00BD39;
+}
+
+.utc__radio:checked + .utc__label {
+  color: #ffffff;
+  background-color: #4AE83A;
+}

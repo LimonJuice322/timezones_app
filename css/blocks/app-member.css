@@ -1,12 +1,32 @@
 .app-member {
-  position: relative;
-  outline: 2px dotted green;
+  position: fixed;
+  display: none;
+  top: 50%;
+  left: 50%;
   width: 600px;
   position: absolute;
   top: 100px;
   left: 100px;
   background-color: #ffffff;
   border-top: 5px solid #00BD39;
+  box-shadow: 0 5px 10px #000000;
+  padding-bottom: 10px;
+}
+
+.app-member--show {
+  display: block;
+}
+
+.app-member__header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.app-member__form {
+  display: flex;
+  flex-direction: column;
 }
 
 .app-member__list {
@@ -15,13 +35,146 @@
   padding: 0;
 }
 
+.app-member__info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 400px;
+  padding: 0;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.app-member__label {
+  display: block;
+  width: 100px;
+}
+
+.app-member__input[type="text"] {
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 2px solid #00BD39;
+  border-radius: 5px;
+  background-color: #F5F5F5;
+}
+
+.app-member__input[type="text"]:hover {
+  background-color: #ffffff;
+}
+
+.app-member__input[type="text"]:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: #80EA69;
+}
+
+.app-member__shedule {
+  padding: 0;
+  margin: 0;
+}
+
+.app-member__table-name {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.app-member__shedule-time {
+  width: 40px;
+  padding: 5px;
+  margin: 0;
+}
+
+.app-member__shedule-label {
+  display: block;
+  padding: 5px;
+  border: 2px solid #0B61A4;
+  border-radius: 5px;
+  position: relative;
+}
+
+.app-member__shedule-label:hover,
+.app-member__shedule-checkbox:focus + .app-member__shedule-label {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #0B61A4;
+}
+
+.app-member__shedule-checkbox:checked + .app-member__shedule-label {
+  color: #ffffff;
+  background-color: #033E6B;
+  border-color: #033E6B;
+}
+
+.app-member__UTC {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.app-member__timezone {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.app-member__timezone-label {
+  display: block;
+  margin-right: 20px;
+}
+
+.app-member__current-timezone {
+  font-size: inherit;
+  font-family: inherit;
+  width: 100px;
+  padding: 5px;
+  border: 2px solid #00BD39;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.app-member__current-timezone:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #00BD39;
+}
+
+.app-member__form-btn {
+  font-size: 15px;
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-width: 150px;
+  font-family: inherit;
+  text-transform: uppercase;
+  border: 2px solid #00BD39;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.app-member__form-btn:hover,
+.app-member__form-btn:focus {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #00BD39;
+  transition: 0.2s;
+}
+
 .app-member__btn-close {
   position: absolute;
   display: block;
   top: 10px;
   right: 10px;
   padding: 10px;
-  color: #00BD39;
   background-color: #ffffff;
   border: 2px solid #00BD39;
   border-radius: 2px;
