@@ -30,6 +30,7 @@
               <p class="app-member__info">
                 <label class="app-member__label" for="name">Name:</label>
                 <input class="app-member__input" id="name" type="text" value="">
+                <span class="required-label">Please enter data</span>
               </p>
             </li>
             <li class="app-member__item">
@@ -47,7 +48,7 @@
             <li class="app-member__item">
               <p class="app-member__shedule">
                 <table class="app-member__shedule-table">
-                  <caption class="app-member__table-name">Create shedule:</caption>
+                  <caption class="app-member__table-name">Indicate the work shedule:</caption>
                   <tr class="app-member__shedule-row">
                     <td class="app-member__shedule-time">
                       <input class="visually-hidden app-member__shedule-checkbox" type="checkbox" id="00:00" name="00:00" value="true">
@@ -157,10 +158,13 @@
             </li>
             <li class="app-member__item">
               <p class="app-member__UTC">
-                <span class="utc__current">(UTC -11:00) UTC time -11</span>
+                <div class="app-member__timezone">
+                  <span class="app-member__timezone-label">Select time zone: </span>
+                  <button type="button" class="app-member__current-timezone">UTC -11:00</button>
+                </div>
                 <ul class="utc" name="utc">
                   <li class="utc__item">
-                    <input class="utc__radio visually-hidden" id="-11" type="radio" name="utc" value="-11">
+                    <input class="utc__radio visually-hidden" checked id="-11" type="radio" name="utc" value="-11">
                     <label class="utc__label" for="-11">(UTC -11:00) UTC time -11</label>
                   </li>
                   <li class="utc__item">

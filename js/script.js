@@ -61,21 +61,17 @@ function render_member(member) {
   times.forEach(time => member.worktime.includes(time.textContent) ? time.classList.add('apptimezones__time--work') : '');
 }
 
-let btn = document.querySelector('.app-member__form-btn');
-btn.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  let name = document.querySelector('.app-member__input-name').value;
-  let surname = document.querySelector('.app-member__input-surname').value;
-  let city = document.querySelector('.app-member__input-city').value;
-  let tzs = Array.from(document.querySelector('.utc'));
-  let tz = tzs.filter(option => option.selected)[0].value;
-  console.log(tz);
+function add_member() {
+  let name = document.getElementById('name').value;
+  let surname = document.getElementById('surname').value;
+  let city = document.getElementById('city').value;
+  let tzs = Array.from(document.querySelectorAll('.utc__radio'));
+  let tz = tzs.filter(option => option.checked)[0].value;
   let checkboxes = Array.from(document.querySelectorAll('.app-member__shedule-checkbox:checked'));
   let worktime = [];
   checkboxes.forEach(checkbox => worktime.push(checkbox.id));
 
   ++id;
-  console.log(id);
   let member = {
     name: name,
     surname: surname,
@@ -84,7 +80,6 @@ btn.addEventListener('click', function (evt) {
     id: id,
     worktime: worktime,
   };
-  console.log(member.worktime);
 
 
   if (localStorage.getItem('members')) {
@@ -97,13 +92,53 @@ btn.addEventListener('click', function (evt) {
     post_data(members);
     render_member(member);
   }
-})
+}
 
 let btn_add = document.querySelector('.app-navigation__btn--add');
 btn_add.addEventListener('click', function () {
-  document.querySelector('.app-member').classList.remove('visually-hidden');
-  let btn_close = document.querySelector('.app-member__btn-close');
+  let modal_add = document.querySelector('.app-member');
+  modal_add.classList.add('app-member--show');
+
+  let btn_close = modal_add.querySelector('.app-member__btn-close');
   btn_close.addEventListener('click', function() {
-    document.querySelector('.app-member').classList.add('visually-hidden');
+    modal_add.classList.remove('app-member--show');
   })
+
+  let name_input = document.getElementById('name');
+  name_input.addEventListener('change', function() {
+    let required_label = modal_add.querySelector('.required-label');
+    if (required_label.classList.contains('required-label--show')) required_label.classList.remove('required-label--show');
+  })
+  name_input.focus();
+
+  let form_btn = document.querySelector('.app-member__form-btn');
+  form_btn.addEventListener('click', function(evt) {
+    evt.preventDefault();
+    let required_label = modal_add.querySelector('.required-label');
+    if (!name_input.value) required_label.classList.add('required-label--show');
+    else {
+      form_btn.addEventListener('click', add_member());
+    }
+
+    document.querySelector('.app-member__form').reset();
+    name_input.focus();
+  })
+
+  let full_utc = modal_add.querySelector('.utc');
+  let current_utc = document.querySelector('.app-member__current-timezone');
+  current_utc.addEventListener('click', function() {
+    document.addEventListener('click', function(evt) {
+      if (evt.target == current_utc) {
+        full_utc.classList.add('utc--show')
+      } else if (!full_utc.contains(evt.target) && full_utc.classList.contains('utc--show')) {
+        full_utc.classList.remove('utc--show');
+      }
+    })
+  })
+
+  let list_utc = document.querySelectorAll('.utc__label');
+  list_utc.forEach(elem => elem.addEventListener('click', function() {
+    current_utc.textContent = `UTC ${elem.htmlFor}:00`;
+    full_utc.classList.remove('utc--show');
+  }))
 })
