@@ -104,6 +104,9 @@ btn_add.addEventListener('click', function () {
     modal_add.classList.remove('app-member--show');
   })
 
+  let required_label = modal_add.querySelector('.required-label');
+  if (required_label.classList.contains('required-label--show')) required_label.classList.remove('required-label--show');
+
   let name_input = document.getElementById('name');
   name_input.addEventListener('change', function() {
     let required_label = modal_add.querySelector('.required-label');
