@@ -1,10 +1,48 @@
+.app-timezones__header {
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
+}
+
 .app-timezones__list-members {
   list-style: none;
   padding: 0;
   margin: 0;
+  padding-bottom: 60px;
+}
+
+.app-timezones__member-name {
+  padding: 0;
+  margin: 0;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.app-timezones__current-time {
+  display: inline-block;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.app-timezones__city {
+  display: inline-block;
+  font-size: 15px;
+  color: #6B6B6B;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .app-timezones__timeline {
+  border-collapse: collapse;
+  border-color: #C5C5C5;
+  margin-top: 10px;
+  margin-left: 10px;
   width: 200px;
 }
 
@@ -14,16 +52,32 @@
 
 .app-timezones__time {
   position: relative;
+  padding-left: 5px;
+  padding-right: 5px;
   padding-bottom: 20px;
 }
 
-.apptimezones__time--work::after {
+.app-timezones__time--work::after {
   position: absolute;
   content: "";
-  width: 46px;
+  width: 56px;
   height: 10px;
   left: -2px;
   bottom: 0;
   background-color: #3F92D2;
   border-radius: 10%;
+}
+
+.app-timezones__time--current {
+  position: relative;
+}
+
+.app-timezones__time--current::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 24px;
+  width: 3px;
+  height: 110px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='110'%3E%3Cline x1='0' y1='10' x2='0' y2='40' stroke='%2300BD39' stroke-width='3' /%3E%3Cline x1='0' y1='110' x2='0' y2='80' stroke='%2300BD39' stroke-width='3' /%3E%3C/svg%3E");
 }

@@ -1,5 +1,4 @@
 .app-navigation__list {
-  outline: 2px dotted red;
   display: flex;
   list-style: none;
   padding: 0;
