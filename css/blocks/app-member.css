@@ -15,6 +15,7 @@
 
 .app-member--show {
   display: block;
+  animation: dropping 1s;
 }
 
 .app-member__header {
@@ -186,4 +187,14 @@
   color: #ffffff;
   background-color: #00BD39;
   transition: 0.2s;
+}
+
+@keyframes dropping {
+  0% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
 }
