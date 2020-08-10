@@ -27,7 +27,7 @@ function get_time_of_zone(offset) {
 function render_timeline(member) {
   let member_elem = document.getElementById(`${member.id}`);
   member_elem.insertAdjacentHTML('beforeend', `
-  <table class="app-timezones__timeline">
+  <table class="app-timezones__timeline" border>
     <tr class="app-timezones__line">
     </tr>
   </table>`);
@@ -43,6 +43,7 @@ function render_timeline(member) {
     line.insertAdjacentHTML('beforeend', `
       <td class="app-timezones__time">${format_time(time, 'h')}:00</td>`);
   }
+  member_elem.querySelectorAll('.app-timezones__time')[6].classList.add('app-timezones__time--current');
 }
 
 function render_member(member) {
@@ -50,15 +51,15 @@ function render_member(member) {
 
   list.insertAdjacentHTML('beforeend', `
     <li id="${member.id}" class="app-timezones__member">
-      <h3 class="app-timezones__member-name">${member.name}</h3>
-      <p class="app-timezones__current-time">${format_time(get_time_of_zone(member.tz))}</p>
+      <h3 class="app-timezones__member-name">${member.name} ${member.surname}</h3>
       <p class="app-timezones__city">${member.city}</p>
+      <p class="app-timezones__current-time">(${format_time(get_time_of_zone(member.tz))})</p>
     </li>`);
   render_timeline(member);
   let member_elem = document.getElementById(`${member.id}`);
   let times = Array.from(member_elem.querySelectorAll('.app-timezones__time'));
 
-  times.forEach(time => member.worktime.includes(time.textContent) ? time.classList.add('apptimezones__time--work') : '');
+  times.forEach(time => member.worktime.includes(time.textContent) ? time.classList.add('app-timezones__time--work') : '');
 }
 
 function add_member() {
