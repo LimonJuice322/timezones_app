@@ -3,7 +3,7 @@
 const get_data = () => JSON.parse(localStorage.getItem('members'));
 const post_data = (obj) => localStorage.setItem('members', JSON.stringify(obj));
 
-if (localStorage.getItem('members')) {
+if (localStorage.getItem('members') && JSON.parse(localStorage.getItem('members').length === 0)) {
   let members = get_data();
   members.forEach(member => render_member(member));
   var id = members[members.length-1].id;
@@ -54,6 +54,7 @@ function render_member(member) {
       <h3 class="app-timezones__member-name">${member.name} ${member.surname}</h3>
       <p class="app-timezones__city">${member.city}</p>
       <p class="app-timezones__current-time">(${format_time(get_time_of_zone(member.tz))})</p>
+      <button onclick="delete_member(${member.id})" class="app-timezones__delete-btn">Delete</button>
     </li>`);
   render_timeline(member);
   let member_elem = document.getElementById(`${member.id}`);
@@ -93,6 +94,19 @@ function add_member() {
     post_data(members);
     render_member(member);
   }
+}
+
+function delete_member(member_id) {
+  let members = get_data();
+  members.forEach(function (member, i) {
+    if (member.id === member_id) members.splice(i, 1);
+  })
+  post_data(members);
+
+  document.getElementById(`${member_id}`).remove();
+
+  if (members.length != 0) id = members[members.length-1].id;
+  else id = 0;
 }
 
 let btn_add = document.querySelector('.app-navigation__btn--add');
