@@ -3,7 +3,7 @@
 const get_data = () => JSON.parse(localStorage.getItem('members'));
 const post_data = (obj) => localStorage.setItem('members', JSON.stringify(obj));
 
-if (localStorage.getItem('members') && JSON.parse(localStorage.getItem('members').length === 0)) {
+if (localStorage.getItem('members') && JSON.parse(localStorage.getItem('members').length !== 0)) {
   let members = get_data();
   members.forEach(member => render_member(member));
   var id = members[members.length-1].id;
@@ -55,6 +55,11 @@ function get_time_of_zone(offset) {
   return new Date(utc + offset * 3600000);
 }
 
+function get_day_of_zone(date) {
+  let days_of_week = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  return days_of_week[date.getDay()];
+}
+
 function render_timeline(member) {
   let member_elem = document.getElementById(`${member.id}`);
   member_elem.insertAdjacentHTML('beforeend', `
@@ -79,19 +84,22 @@ function render_timeline(member) {
 
 function render_member(member) {
   let list = document.querySelector('.app-timezones__list-members');
+  let current_date = get_time_of_zone(member.tz);
 
   list.insertAdjacentHTML('beforeend', `
     <li id="${member.id}" class="app-timezones__member">
       <h3 class="app-timezones__member-name">${member.name} ${member.surname}</h3>
       <p class="app-timezones__city">${member.city}</p>
-      <p class="app-timezones__current-time">(${format_time(get_time_of_zone(member.tz))})</p>
+      <p class="app-timezones__current-time">(${format_time(current_date)})</p>
       <button onclick="delete_member(${member.id})" class="app-timezones__delete-btn">Delete</button>
     </li>`);
   render_timeline(member);
   let member_elem = document.getElementById(`${member.id}`);
   let times = Array.from(member_elem.querySelectorAll('.app-timezones__time'));
-
-  times.forEach(time => member.worktime.includes(time.textContent) ? time.classList.add('app-timezones__time--work') : '');
+  let current_day = get_day_of_zone(current_date);
+  if (member.shedule.hasOwnProperty(current_day)) {
+    times.forEach(time => member.shedule[current_day].includes(time.textContent) ? time.classList.add('app-timezones__time--work') : '');
+  }
 }
 
 function add_in_shedule() {
@@ -121,6 +129,19 @@ function delete_shedule(day_id) {
   delete shedule[`${day_id}`];
 }
 
+function clear_shedule() {
+  let work_days = Array.from(document.querySelectorAll('.test-day'));
+  work_days.forEach(function (item) {
+    if (item.querySelector('.app-member__checked-hours')) {
+      item.querySelector('.app-member__checked-hours').remove();
+      item.querySelector('.app-member__shedule-day-label--work').classList.remove('app-member__shedule-day-label--work');
+      item.querySelector('.app-member__delete-day').remove();
+    }
+  })
+
+  shedule = {};
+}
+
 function add_member() {
   let name = document.getElementById('name').value;
   let surname = document.getElementById('surname').value;
@@ -135,7 +156,7 @@ function add_member() {
     city: city,
     tz: tz,
     id: id,
-    worktime: worktime,
+    shedule: shedule,
   };
 
 
@@ -149,6 +170,10 @@ function add_member() {
     post_data(members);
     render_member(member);
   }
+
+  clear_shedule();
+
+  console.log(member);
 }
 
 function delete_member(member_id) {
@@ -191,13 +216,14 @@ btn_add.addEventListener('click', function () {
   form_btn.addEventListener('click', function(evt) {
     evt.preventDefault();
     let required_label = modal_add.querySelector('.required-label');
-    if (!name_input.value) required_label.classList.add('required-label--show');
-    else {
-      form_btn.addEventListener('click', add_member());
+    if (!name_input.value) {
+      required_label.classList.add('required-label--show');
+      name_input.focus();
+    } else {
+        form_btn.addEventListener('click', add_member());
+        document.querySelector('.app-member__form').reset();
+        modal_add.classList.remove('app-member--show');
     }
-
-    document.querySelector('.app-member__form').reset();
-    name_input.focus();
   })
 
   let full_utc = modal_add.querySelector('.utc');
