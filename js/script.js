@@ -60,6 +60,17 @@ function get_day_of_zone(date) {
   return days_of_week[date.getDay()];
 }
 
+function set_work_hours(member, line, line_date, offset_in_hours) {
+  let time = new Date(new Date(line_date).setHours(line_date.getHours()+offset_in_hours));
+  let correct_time = format_time(time, 'h');
+  let day = get_day_of_zone(time);
+  if (member.shedule.hasOwnProperty(day) && member.shedule[`${day}`].includes(correct_time)) {
+    line.insertAdjacentHTML('beforeend', `
+      <td class="app-timezones__time app-timezones__time--work">${correct_time}</td>`);
+  } else line.insertAdjacentHTML('beforeend', `
+    <td class="app-timezones__time">${correct_time}</td>`);
+}
+
 function render_timeline(member) {
   let member_elem = document.getElementById(`${member.id}`);
   member_elem.insertAdjacentHTML('beforeend', `
@@ -70,24 +81,10 @@ function render_timeline(member) {
   let line = member_elem.querySelector('.app-timezones__line');
   let line_date = get_time_of_zone(member.tz);
   for (let i = 6; i > 0; i--) {
-    let time = new Date(new Date(line_date).setHours(line_date.getHours()-i));
-    let correct_time = format_time(time, 'h');
-    let day = get_day_of_zone(time);
-    if (member.shedule.hasOwnProperty(day) && member.shedule[`${day}`].includes(correct_time)) {
-      line.insertAdjacentHTML('beforeend', `
-        <td class="app-timezones__time app-timezones__time--work">${correct_time}</td>`);
-    } else line.insertAdjacentHTML('beforeend', `
-      <td class="app-timezones__time">${correct_time}</td>`);
+    set_work_hours(member, line, line_date, -i);
   }
   for (let i = 0; i < 6; i++) {
-    let time = new Date(new Date(line_date).setHours(line_date.getHours()+i));
-    let correct_time = format_time(time, 'h');
-    let day = get_day_of_zone(time);
-    if (member.shedule.hasOwnProperty(day) && member.shedule[`${day}`].includes(correct_time)) {
-      line.insertAdjacentHTML('beforeend', `
-        <td class="app-timezones__time app-timezones__time--work">${correct_time}</td>`);
-    } else line.insertAdjacentHTML('beforeend', `
-      <td class="app-timezones__time">${correct_time}</td>`);
+    set_work_hours(member, line, line_date, i);
   }
   member_elem.querySelectorAll('.app-timezones__time')[6].classList.add('app-timezones__time--current');
 }
