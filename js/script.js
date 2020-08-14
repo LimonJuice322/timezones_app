@@ -46,7 +46,7 @@ function format_time(time, ...parameters) {
   let formatted_minutes, formatted_hours;
   (time.getHours() < 10) ? formatted_hours = `0${time.getHours()}` : formatted_hours = `${time.getHours()}`;
   (time.getMinutes() < 10) ? formatted_minutes = `0${time.getMinutes()}` : formatted_minutes = `${time.getMinutes()}`;
-  return parameters[0] === 'm' ? `${formatted_minutes}` : parameters[0] === 'h' ? `${formatted_hours}` : `${formatted_hours}:${formatted_minutes}`
+  return parameters[0] === 'm' ? `${formatted_minutes}` : parameters[0] === 'h' ? `${formatted_hours}:00` : `${formatted_hours}:${formatted_minutes}`
 }
 
 function get_time_of_zone(offset) {
@@ -71,13 +71,23 @@ function render_timeline(member) {
   let line_date = get_time_of_zone(member.tz);
   for (let i = 6; i > 0; i--) {
     let time = new Date(new Date(line_date).setHours(line_date.getHours()-i));
-    line.insertAdjacentHTML('beforeend', `
-      <td class="app-timezones__time">${format_time(time, 'h')}:00</td>`);
+    let correct_time = format_time(time, 'h');
+    let day = get_day_of_zone(time);
+    if (member.shedule.hasOwnProperty(day) && member.shedule[`${day}`].includes(correct_time)) {
+      line.insertAdjacentHTML('beforeend', `
+        <td class="app-timezones__time app-timezones__time--work">${correct_time}</td>`);
+    } else line.insertAdjacentHTML('beforeend', `
+      <td class="app-timezones__time">${correct_time}</td>`);
   }
   for (let i = 0; i < 6; i++) {
     let time = new Date(new Date(line_date).setHours(line_date.getHours()+i));
-    line.insertAdjacentHTML('beforeend', `
-      <td class="app-timezones__time">${format_time(time, 'h')}:00</td>`);
+    let correct_time = format_time(time, 'h');
+    let day = get_day_of_zone(time);
+    if (member.shedule.hasOwnProperty(day) && member.shedule[`${day}`].includes(correct_time)) {
+      line.insertAdjacentHTML('beforeend', `
+        <td class="app-timezones__time app-timezones__time--work">${correct_time}</td>`);
+    } else line.insertAdjacentHTML('beforeend', `
+      <td class="app-timezones__time">${correct_time}</td>`);
   }
   member_elem.querySelectorAll('.app-timezones__time')[6].classList.add('app-timezones__time--current');
 }
@@ -94,12 +104,6 @@ function render_member(member) {
       <button onclick="delete_member(${member.id})" class="app-timezones__delete-btn">Delete</button>
     </li>`);
   render_timeline(member);
-  let member_elem = document.getElementById(`${member.id}`);
-  let times = Array.from(member_elem.querySelectorAll('.app-timezones__time'));
-  let current_day = get_day_of_zone(current_date);
-  if (member.shedule.hasOwnProperty(current_day)) {
-    times.forEach(time => member.shedule[current_day].includes(time.textContent) ? time.classList.add('app-timezones__time--work') : '');
-  }
 }
 
 function add_in_shedule() {
