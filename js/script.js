@@ -11,6 +11,37 @@ if (localStorage.getItem('members') && JSON.parse(localStorage.getItem('members'
   var id = 0;
 }
 
+let shedule = {};
+
+function check_shedule(day, worktime) {
+  if (day.checked && !shedule.hasOwnProperty(day.value)) {
+    shedule[`${day.value}`] = worktime;
+  } else if (shedule.hasOwnProperty(day.value)){
+    for (let i = 0; i < worktime.length; i++) {
+      if (!shedule[`${day.value}`].includes(worktime[i])) {
+        shedule[`${day.value}`].push(worktime[i]);
+      }
+    }
+  }
+  shedule[`${day.value}`].sort();
+  render_shedule(day);
+}
+
+function render_shedule(day) {
+  let work_day = document.getElementById(`day-${day.value}`);
+  if (!work_day.querySelector('.app-member__checked-hours')) work_day.insertAdjacentHTML('beforeend', `
+    <ul class="app-member__checked-hours">
+    </ul>`);
+  let work_shedule = work_day.querySelector('.app-member__checked-hours');
+  let work_day_hours = Array.from(work_shedule.querySelectorAll('.app-member__time-of-work')).map(elem => elem.textContent).sort();
+  shedule[`${day.value}`].forEach(function (time) {
+    if (!work_day_hours.includes(time)) work_shedule.insertAdjacentHTML('beforeend', `
+    <li class="app-member__time-of-work">${time}</li>`);
+  });
+  if (!work_day.querySelector('.app-member__delete-day')) work_shedule.insertAdjacentHTML('beforebegin', `
+    <button onclick="delete_shedule('${day.value}')" class="app-member__delete-day" type="button">X</button>`);
+}
+
 function format_time(time, ...parameters) {
   let formatted_minutes, formatted_hours;
   (time.getHours() < 10) ? formatted_hours = `0${time.getHours()}` : formatted_hours = `${time.getHours()}`;
@@ -63,15 +94,39 @@ function render_member(member) {
   times.forEach(time => member.worktime.includes(time.textContent) ? time.classList.add('app-timezones__time--work') : '');
 }
 
+function add_in_shedule() {
+  let shedule_days = Array.from(document.querySelectorAll('.app-member__shedule-day-label'));
+  let days = Array.from(document.querySelectorAll('.app-member__shedule-day'));
+  let checkboxes = Array.from(document.querySelectorAll('.app-member__shedule-checkbox:checked'));
+  let worktime = [];
+  checkboxes.forEach(checkbox => worktime.push(checkbox.id));
+  for (let i = 0; i <= 6; i++) {
+    if (!shedule_days[i].classList.contains('app-member__shedule-day-label--work') && days[i].checked) {
+      shedule_days[i].classList.add('app-member__shedule-day-label--work');
+      check_shedule(days[i], worktime);
+    } else if (shedule_days[i].classList.contains('app-member__shedule-day-label--work') && days[i].checked) {
+      check_shedule(days[i], worktime);
+    }
+  }
+  checkboxes.forEach(checkbox => checkbox.checked = false);
+  days.forEach(day => day.checked === true? day.checked = false : day.checked = false);
+  console.log(shedule);
+}
+
+function delete_shedule(day_id) {
+  let work_day = document.getElementById(`day-${day_id}`);
+  work_day.querySelector('.app-member__checked-hours').remove();
+  work_day.querySelector('.app-member__shedule-day-label--work').classList.remove('app-member__shedule-day-label--work');
+  work_day.querySelector('.app-member__delete-day').remove();
+  delete shedule[`${day_id}`];
+}
+
 function add_member() {
   let name = document.getElementById('name').value;
   let surname = document.getElementById('surname').value;
   let city = document.getElementById('city').value;
   let tzs = Array.from(document.querySelectorAll('.utc__radio'));
   let tz = tzs.filter(option => option.checked)[0].value;
-  let checkboxes = Array.from(document.querySelectorAll('.app-member__shedule-checkbox:checked'));
-  let worktime = [];
-  checkboxes.forEach(checkbox => worktime.push(checkbox.id));
 
   ++id;
   let member = {
@@ -128,6 +183,9 @@ btn_add.addEventListener('click', function () {
     if (required_label.classList.contains('required-label--show')) required_label.classList.remove('required-label--show');
   })
   name_input.focus();
+
+  let shedule_btn = modal_add.querySelector('.app-member__shedule-btn');
+  shedule_btn.addEventListener('click', add_in_shedule);
 
   let form_btn = document.querySelector('.app-member__form-btn');
   form_btn.addEventListener('click', function(evt) {

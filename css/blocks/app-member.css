@@ -113,6 +113,10 @@
   border-color: #033E6B;
 }
 
+.app-member__shedule-day-label--work {
+  background-color: red;
+}
+
 .app-member__UTC {
   position: relative;
   margin: 0;
