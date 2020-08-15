@@ -3,7 +3,7 @@
 const get_data = () => JSON.parse(localStorage.getItem('members'));
 const post_data = (obj) => localStorage.setItem('members', JSON.stringify(obj));
 
-if (localStorage.getItem('members') && JSON.parse(localStorage.getItem('members').length !== 0)) {
+if (localStorage.getItem('members') && JSON.parse(localStorage.getItem('members')).length !== 0) {
   let members = get_data();
   members.forEach(member => render_member(member));
   var id = members[members.length-1].id;
@@ -39,7 +39,7 @@ function render_shedule(day) {
     <li class="app-member__time-of-work">${time}</li>`);
   });
   if (!work_day.querySelector('.app-member__delete-day')) work_shedule.insertAdjacentHTML('beforebegin', `
-    <button onclick="delete_shedule('${day.value}')" class="app-member__delete-day" type="button">X</button>`);
+    <button onclick="delete_shedule('${day.value}')" class="app-member__delete-day" type="button">Clear</button>`);
 }
 
 function format_time(time, ...parameters) {
@@ -105,7 +105,7 @@ function render_member(member) {
 
 function add_in_shedule() {
   let shedule_days = Array.from(document.querySelectorAll('.app-member__shedule-day-label'));
-  let days = Array.from(document.querySelectorAll('.app-member__shedule-day'));
+  let days = Array.from(document.querySelectorAll('.app-member__shedule-day-input'));
   let checkboxes = Array.from(document.querySelectorAll('.app-member__shedule-checkbox:checked'));
   let worktime = [];
   checkboxes.forEach(checkbox => worktime.push(checkbox.id));
@@ -131,7 +131,7 @@ function delete_shedule(day_id) {
 }
 
 function clear_shedule() {
-  let work_days = Array.from(document.querySelectorAll('.test-day'));
+  let work_days = Array.from(document.querySelectorAll('.app-member__shedule-day'));
   work_days.forEach(function (item) {
     if (item.querySelector('.app-member__checked-hours')) {
       item.querySelector('.app-member__checked-hours').remove();
