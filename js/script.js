@@ -106,20 +106,22 @@ function render_member(member) {
 function add_in_shedule() {
   let shedule_days = Array.from(document.querySelectorAll('.app-member__shedule-day-label'));
   let days = Array.from(document.querySelectorAll('.app-member__shedule-day-input'));
-  let checkboxes = Array.from(document.querySelectorAll('.app-member__shedule-checkbox:checked'));
-  let worktime = [];
-  checkboxes.forEach(checkbox => worktime.push(checkbox.id));
+  let work_hours = Array.from(document.querySelectorAll('.app-member__shedule-checkbox:checked')).map(checkbox => checkbox.id);
   for (let i = 0; i <= 6; i++) {
     if (!shedule_days[i].classList.contains('app-member__shedule-day-label--work') && days[i].checked) {
       shedule_days[i].classList.add('app-member__shedule-day-label--work');
-      check_shedule(days[i], worktime);
+      check_shedule(days[i], work_hours);
     } else if (shedule_days[i].classList.contains('app-member__shedule-day-label--work') && days[i].checked) {
-      check_shedule(days[i], worktime);
+      check_shedule(days[i], work_hours);
     }
   }
-  checkboxes.forEach(checkbox => checkbox.checked = false);
-  days.forEach(day => day.checked === true? day.checked = false : day.checked = false);
+  clear_inputs();
   console.log(shedule);
+}
+
+function clear_inputs() {
+  document.querySelectorAll('.app-member__shedule-checkbox:checked').forEach(checkbox => checkbox.checked = false);
+  document.querySelectorAll('.app-member__shedule-day-input:checked').forEach(checkbox => checkbox.checked = false);
 }
 
 function delete_shedule(day_id) {
