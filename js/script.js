@@ -116,7 +116,6 @@ function add_in_shedule() {
     }
   }
   clear_inputs();
-  console.log(shedule);
 }
 
 function clear_inputs() {
@@ -149,8 +148,7 @@ function add_member() {
   let name = document.getElementById('name').value;
   let surname = document.getElementById('surname').value;
   let city = document.getElementById('city').value;
-  let tzs = Array.from(document.querySelectorAll('.utc__radio'));
-  let tz = tzs.filter(option => option.checked)[0].value;
+  let tz = Array.from(document.querySelectorAll('.utc__radio')).filter(option => option.checked)[0].value;
 
   ++id;
   let member = {
@@ -175,8 +173,6 @@ function add_member() {
   }
 
   clear_shedule();
-
-  console.log(member);
 }
 
 function delete_member(member_id) {
